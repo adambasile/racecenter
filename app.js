@@ -89,7 +89,7 @@ togglePause = function() {
 document.body.className = document.body.className.replace("body--dark","");
 
 var style = document.createElement('style');
-style.innerHTML = '.group {border-bottom: 2px solid #ba4a19; margin-bottom: 3px; font-size: 11px; color: #333} .yellow div { background-color: #ff0; border: 1px solid #ffb700; } .green div { background-color: #45AE51; color: #fff}  .orange div { background-color: '+ settings.mycolor +'; color: #fff}  .slow span {color: #fff; background-color: #000} .team {color:#fff; background-color: #ba4a19; } #q-app {padding: 10px} #pause, #button-settings, #button-peloton, #button-segments {font-size: 40px; margin-left: 2px} .group div div { padding-left: 2px; padding-right: 2px;} #toolbar { display: flex; background: #fee5d9; padding: 10px; border-bottom: 2px solid #ba4a19; align-items: center } #toolbar > img { width: 72px; } #jerseyWrapper { display: flex;margin: auto; align-items: center; } .row { justify-content: center; } .selected { background: #ffa47b; } .fas { color: #ba4a19; } .row>.col-md-2 { padding: 2px 5px } .teamJersey:hover { background: #ffa47b; } #toolbar .distance { padding-left: 10px; font-size: 24px }';
+style.innerHTML = '.group {border-bottom: 2px solid #ba4a19; margin-bottom: 3px; font-size: 11px; color: #333} .yellow div { background-color: #ff0; border: 1px solid #ffb700; } .green div { background-color: #45AE51; color: #fff}  .orange div { background-color: '+ settings.mycolor +'; color: #fff}  .slow span {color: #fff; background-color: #000} .team {color:#fff; background-color: #ba4a19; } #q-app {padding: 10px} #pause, #button-settings, #button-peloton, #button-segments {font-size: 40px; margin-left: 2px} .group div div { padding-left: 2px; padding-right: 2px;} #toolbar { display: flex; background: #fee5d9; padding: 10px; border-bottom: 2px solid #ba4a19; align-items: center } #toolbar > img { width: 72px; } #jerseyWrapper { display: flex;margin: auto; align-items: center; } .row { justify-content: left; } .selected { background: #ffa47b; } .fas { color: #ba4a19; } .row>.col-md-2 { padding: 2px 5px } .teamJersey:hover { background: #ffa47b; } #toolbar .distance { padding-left: 10px; font-size: 24px }';
 style.innerHTML += ' #jerseyWrapper a {width: 2.5%} #jerseyWrapper img {max-width:100%}';
 style.innerHTML += ' .darkblue div {background-color: #00008b; color: #fff}';
 style.innerHTML += ' .babyblue div {background-color: #BFD7ED}';
@@ -392,7 +392,7 @@ wkg = function(low, high, distance, duration, RiderWeight) {
 	var P0  = 101325;
 	var Rs = 287.058;
 	var CwaHigh = 0.3500;
-	var CwaLow = 0.2625;    
+	var CwaLow = 0.2625;
 	var FrictionCoefficient = 0.0050;
 	var g = 9.80665;
 
@@ -520,7 +520,7 @@ showEfforts = function (idx) {
 
     // order by duration / starttime
     show_efforts.sort(compareEffort);
-    // generate table with results 
+    // generate table with results
     html += '<div id="efforts_download"><table id="efforts_table">';
     html += '<thead><tr><th><br>bib</th><th></th><th><br>Started</th><th><br>Finished</th><th><br>Duration</th><th>W/kg<br>Full drafting</th><th>W/kg<br>No drafting</th><th><br>km/h</th></tr></thead>'
     for(var i=0; i < show_efforts.length; i++) {
@@ -579,7 +579,7 @@ showEfforts = function (idx) {
             deleteSegment(selectedSegment);
         }
     };
-    
+
 }
 
 showSegments = function (day) {
@@ -643,12 +643,12 @@ downloadResults = function () {
 
 // settings form
 document.getElementById('min_gap').value = settings.min_gap;
-document.getElementById('min_gap').addEventListener("change", function() { 
+document.getElementById('min_gap').addEventListener("change", function() {
     settings.min_gap = document.getElementById('min_gap').value;
     saveSettings();
 });
 document.getElementById('max_slow_speed').value = settings.max_slow_speed;
-document.getElementById('max_slow_speed').addEventListener("change", function() { 
+document.getElementById('max_slow_speed').addEventListener("change", function() {
     settings.min_gap = document.getElementById('max_slow_speed').value;
     saveSettings();
     console.log('max_slow_speed updated');
@@ -660,7 +660,7 @@ loadData = function (url, cFunction) {
     xhttp.open("GET", url);
     xhttp.send();
 }
-  
+
 
 // load data jsons
 loadData("/api/allCompetitors-" + year, loadRiders);
@@ -696,7 +696,7 @@ riderCard = function (bib) {
     // click events
     var colorButtons = document.getElementsByClassName('color');
     for (var i=0; i < colorButtons.length; i++) {
-        colorButtons[i].onclick = function () { 
+        colorButtons[i].onclick = function () {
             console.log(this.id);
             settings.riders[selectedRider] = { color: this.id };
             var elm = document.getElementById('r' + selectedRider);
@@ -734,7 +734,7 @@ function startListening() {
             var d = JSON.parse(e.data);
             var html = '<div class="row group">';
             var previous_gap = 0;
-            if (d.bind == 'telemetryCompetitor-' + year) { 
+            if (d.bind == 'telemetryCompetitor-' + year) {
                 // all data has been loaded, process snapshot
                 var sound = "";
                 var riders = d.data.Riders;
@@ -775,7 +775,7 @@ function startListening() {
                     // loop through today's segments
                     for (var s = 0; s < todaysSegments.length; s++) {
                         var updateStorage = false;
-                        
+
                         var segment = todaysSegments[s];
                         var kmFromStart = stageDistance - rider.kmToFinish;
                         var distanceFromSegmentStart = segment.start - kmFromStart;
@@ -823,10 +823,10 @@ function startListening() {
                                 // estimate time at the start
                                 updateStorage = true;
                                 efforts[segment.id][bib].starttime = getTimeStamp(
-                                    efforts[segment.id][bib].beforeStart.distance, 
-                                    efforts[segment.id][bib].afterStart.distance, 
-                                    efforts[segment.id][bib].beforeStart.timeStamp, 
-                                    efforts[segment.id][bib].afterStart.timeStamp 
+                                    efforts[segment.id][bib].beforeStart.distance,
+                                    efforts[segment.id][bib].afterStart.distance,
+                                    efforts[segment.id][bib].beforeStart.timeStamp,
+                                    efforts[segment.id][bib].afterStart.timeStamp
                                 )
                             }
                         }
@@ -855,10 +855,10 @@ function startListening() {
                             if (efforts[segment.id][bib].beforeEnd) {
                                 // estimate time at the end
                                 efforts[segment.id][bib].endtime = getTimeStamp(
-                                    efforts[segment.id][bib].beforeEnd.distance, 
-                                    efforts[segment.id][bib].afterEnd.distance, 
-                                    efforts[segment.id][bib].beforeEnd.timeStamp, 
-                                    efforts[segment.id][bib].afterEnd.timeStamp 
+                                    efforts[segment.id][bib].beforeEnd.distance,
+                                    efforts[segment.id][bib].afterEnd.distance,
+                                    efforts[segment.id][bib].beforeEnd.timeStamp,
+                                    efforts[segment.id][bib].afterEnd.timeStamp
                                 )
                                 // calculate duration if you also recorded the start
                                 if (efforts[segment.id][bib].starttime) {
@@ -871,7 +871,7 @@ function startListening() {
                         if (updateStorage) {
                             saveEfforts(segment.id);
                             // refresh efforts
-                            if (segment.id == selectedSegment) showEfforts(selectedSegment); 
+                            if (segment.id == selectedSegment) showEfforts(selectedSegment);
                         }
 
                     }
